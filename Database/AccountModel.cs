@@ -18,12 +18,12 @@ namespace Database
         }
         public bool Login(string user,string pass)
         {
-            object[] sqlPara =
-            {
-                new SqlParameter("@User", user),
-                new SqlParameter("Pass", pass)
-            };
-            var res = context.Database.SqlQuery<bool>("sp_Account_Login @User, @Pass", sqlPara).SingleOrDefault();
+            //object[] sqlPara =
+            //{
+            //   new SqlParameter("@User", user),
+            //   new SqlParameter("Pass", pass)
+            //};
+            //var res = context.Database.SqlQuery<bool>("sp_Account_Login @User, @Pass", sqlPara).SingleOrDefault();
             return true;
         }
     }

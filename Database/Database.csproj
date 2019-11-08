@@ -52,13 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountModel.cs" />
-    <Compile Include="Framework\bailam.cs" />
-    <Compile Include="Framework\cauhoi.cs" />
-    <Compile Include="Framework\dethi.cs" />
     <Compile Include="Framework\quanly.cs" />
     <Compile Include="Framework\sysdiagram.cs" />
     <Compile Include="Framework\ThiDLDbContext.cs" />
-    <Compile Include="Framework\thisinh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
