@@ -1,0 +1,12 @@
+﻿body{
+    background-color: #77C35E;
+}
+.login-student{
+    width: 400px;
+    margin: 100px auto;
+    background-color: white;
+    box-shadow: 4px 5px #00000070;
+}
+.login-student>form{
+   padding: 10%;
+}

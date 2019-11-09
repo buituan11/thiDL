@@ -1,0 +1,75 @@
+﻿
+@{
+    Layout = null;
+}
+@model ThiDieuLenh.Areas.Student.Models.SignupModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="/Assets/vendor/bootstrap.js"></script>
+    <link rel="stylesheet" href="/Assets/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="/Assets/css/reset.css">
+    <link rel="stylesheet" href="/Assets/css/signup_student.css">
+    <title>Đăng kí thi</title>
+</head>
+<body>
+    <div class="bg-login">
+        <div class="login-student">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                <div class="form-group">
+                    <label for="StudentAccount">Sô hiệu học viên</label>
+                    @Html.TextBoxFor(model => model.SoHieu, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @id = "StudentAccount",
+                           @placeholder = "Số hiệu học viên"
+                       }
+                     )
+                </div>
+                <div class="form-group">
+                    <label for="AdminPassword">Họ và tên</label>
+                    @Html.TextBoxFor(model => model.HoTen, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @id = "StudentYear",
+                           @placeholder = "Họ và tên"
+                       }
+                     )
+                </div>
+                <div class="form-group">
+                    <label for="StudentAccount">Lớp</label>
+                    @Html.TextBoxFor(model => model.Lop, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @id = "StudentAccount",
+                           @placeholder = "Lớp"
+                       }
+                     )
+                </div>
+                <div class="form-group">
+                    <label for="StudentAccount">Chuyên khoa</label>
+                    @Html.TextBoxFor(model => model.ChuyenKhoa, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @id = "StudentAccount",
+                           @placeholder = "Chuyên khoa"
+                       }
+                     )
+                </div>
+                <button type="submit" class="btn btn-primary">Đăng ký</button>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

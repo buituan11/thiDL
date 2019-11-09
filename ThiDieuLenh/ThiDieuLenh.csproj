@@ -125,20 +125,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\css\login.css" />
+    <Content Include="Assets\css\login_admin.css" />
+    <Content Include="Assets\css\login_student.css" />
+    <Content Include="Assets\css\menu.css" />
+    <Content Include="Assets\css\signup_student.css" />
+    <Content Include="Assets\images\logo.jpg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Code\SessionHelper.cs" />
-    <Compile Include="Areas\Admin\Code\UserSession.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
+    <Compile Include="Areas\Student\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Student\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Student\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Student\Controllers\SignupController.cs" />
+    <Compile Include="Areas\Student\Models\LoginModel.cs" />
+    <Compile Include="Areas\Student\Models\SignupModel.cs" />
+    <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
+    <Compile Include="Common\CommonConstant.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,6 +167,11 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Student\Views\web.config" />
+    <Content Include="Areas\Student\Views\Login\index.cshtml" />
+    <Content Include="Areas\Student\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Student\Views\Signup\Index.cshtml" />
+    <Content Include="Views\Menu\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -162,18 +181,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Student\Views\Base\" />
+    <Folder Include="Areas\Student\Views\Shared\" />
     <Folder Include="Assets\fonts\" />
-    <Folder Include="Assets\images\" />
     <Folder Include="Assets\js\" />
     <Folder Include="Assets\vendor\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{da06ea78-a236-4e92-ba4b-4ee9bb0b1e77}</Project>
-      <Name>Database</Name>
+    <ProjectReference Include="..\DbDieuLenh\DbDieuLenh.csproj">
+      <Project>{cefba5e5-ea9f-404a-b50e-70ff5c8c96d0}</Project>
+      <Name>DbDieuLenh</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

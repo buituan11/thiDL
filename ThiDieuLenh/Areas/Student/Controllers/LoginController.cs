@@ -1,40 +1,38 @@
-﻿using System;
+﻿using DbDieuLenh;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ThiDieuLenh.Areas.Admin.Models;
-using System.Security.Principal;
-using DbDieuLenh;
+using ThiDieuLenh.Areas.Student.Models;
 using ThiDieuLenh.Common;
 
-namespace ThiDieuLenh.Areas.Admin.Controllers
+namespace ThiDieuLenh.Areas.Student.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Admin/Login
+        // GET: Student/Login
         [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(LoginModel model)
         {
             if (ModelState.IsValid)
             {
-                var res = new AccountModel().Login(model.User, model.Pass);
+                var res = new StudentModel().Login(model.SoHieu);
                 if (res)
                 {
-                    int user = new AccountModel().GetAdminId(model.User);
-                    
-                    Session.Add(CommonConstant.ADMIN_SESSION, user);
+                    Session.Add(CommonConstant.STUDENT_SESSION, model.SoHieu);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng");
+                    ModelState.AddModelError("", "Thí sinh chưa nằm trong danh sách thi");
                     return View(model);
                 }
             }
