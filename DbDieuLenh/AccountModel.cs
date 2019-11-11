@@ -13,7 +13,7 @@ namespace DbDieuLenh
     public class AccountModel
     {
         private DLDbContext context = null;
-        private SqlConnection con = new SqlConnection(@"data source=DESKTOP-ET1FTND;initial catalog=DieuLenh;user id=sa;password=buituan112;MultipleActiveResultSets=True;App=EntityFramework");
+        private SqlConnection con = new SqlConnection(@"data source=.;initial catalog=DieuLenh;user id=sa;password=buituan112;MultipleActiveResultSets=True;App=EntityFramework");
         private SqlCommand cmd = new SqlCommand();
 
         public AccountModel()
