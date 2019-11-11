@@ -24,7 +24,7 @@ namespace ThiDieuLenh.Areas.Student.Controllers
         {
             if (ModelState.IsValid)
             {
-                var res = new StudentModel().Login(model.SoHieu);
+                var res = new StudentModel().Login(model.SoHieu,model.NamHoc);
                 if (res)
                 {
                     Session.Add(CommonConstant.STUDENT_SESSION, model.SoHieu);

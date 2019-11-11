@@ -10,6 +10,7 @@ namespace ThiDieuLenh.Areas.Student.Models
     {
         [Required]
         public string SoHieu { set; get; }
+        public string NamHoc { set; get; }
         public string HoTen { set; get; }
         public string Lop { set; get; }
         public string ChuyenKhoa { set; get; }

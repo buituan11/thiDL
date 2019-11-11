@@ -34,6 +34,17 @@
                      )
                 </div>
                 <div class="form-group">
+                    <label for="StudentAccount">Năm học</label>
+                    @Html.TextBoxFor(model => model.NamHoc, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @id = "StudentAccount",
+                           @placeholder = "Năm học"
+                       }
+                     )
+                </div>
+                <div class="form-group">
                     <label for="AdminPassword">Họ và tên</label>
                     @Html.TextBoxFor(model => model.HoTen, new
                        {

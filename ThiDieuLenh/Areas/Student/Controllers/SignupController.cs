@@ -22,10 +22,10 @@ namespace ThiDieuLenh.Areas.Student.Controllers
         {
             if (ModelState.IsValid)
             {
-                var res = new StudentModel().Login(model.SoHieu);
+                var res = new StudentModel().Login(model.SoHieu, model.NamHoc);
                 if (!res)
                 {
-                    new StudentModel().Add(model.SoHieu, model.HoTen, model.Lop, model.ChuyenKhoa);
+                    new StudentModel().Add(model.SoHieu, model.NamHoc, model.HoTen, model.Lop, model.ChuyenKhoa);
                     return RedirectToAction("Index", "Login");
                 }
                 else
