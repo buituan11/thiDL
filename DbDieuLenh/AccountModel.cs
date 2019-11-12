@@ -32,10 +32,9 @@ namespace DbDieuLenh
                 if (reader.HasRows)
                 {
                     while (reader.Read())
-                    {
-                        int index = Convert.ToInt32(reader.GetValue(0));
-                        string dbUser = reader.GetString(1);
-                        string dbPass = reader.GetString(2);
+                    { 
+                        string dbUser = reader.GetString(0);
+                        string dbPass = reader.GetString(1);
                         if (user == dbUser && pass == dbPass)
                         {
                             res = true;
@@ -46,19 +45,23 @@ namespace DbDieuLenh
             }
             return res;
         }
-        public int GetAdminId(string user)
+        public string GetName(string user)
         {
+            var res = "";
             cmd.CommandText = "select * from tbQuanLy";
-            int res= new int();
+
             using (DbDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        string dbUser = reader.GetString(1);
+                        string dbUser = reader.GetString(0);
                         if (user == dbUser)
-                            res = Convert.ToInt32(reader.GetValue(0));
+                        {
+                            res = reader.GetString(2);
+                        }
+
                     }
                 }
             }

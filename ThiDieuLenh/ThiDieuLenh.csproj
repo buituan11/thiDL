@@ -125,6 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\home_admin.css" />
     <Content Include="Assets\css\login_admin.css" />
     <Content Include="Assets\css\login_student.css" />
     <Content Include="Assets\css\menu.css" />

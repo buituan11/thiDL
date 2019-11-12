@@ -27,9 +27,8 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
                 var res = new AccountModel().Login(model.User, model.Pass);
                 if (res)
                 {
-                    int user = new AccountModel().GetAdminId(model.User);
-                    
-                    Session.Add(CommonConstant.ADMIN_SESSION, user);
+                    var name = new AccountModel().GetName(model.User);
+                    Session.Add(CommonConstant.ADMIN_SESSION, name);
                     return RedirectToAction("Index", "Home");
                 }
                 else
