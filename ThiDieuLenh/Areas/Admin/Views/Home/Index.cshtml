@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-
+@model ThiDieuLenh.Areas.Admin.Models.HomeModel
 <!DOCTYPE html>
 
 <html>
@@ -11,14 +11,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="/Assets/vendor/bootstrap.js"></script>
     <link rel="stylesheet" href="/Assets/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="/Assets/css/reset.css">
-    <link rel="stylesheet" href="~/Assets/css/home_admin.css">
+    <link rel="stylesheet" href="/Assets/css/reset.css" />
     <title>Index</title>
 </head>
+<style>
+    body{
+        background-color: #77C35E;
+    }
+    .home-admin{
+        background-color: white;
+        width:900px;
+        padding: 5%;
+        margin: 0px auto;
+        margin-top: 100px;
+    }
+    .home-admin h1{ font-size: 30px; margin-bottom: 10px; }
+    .home-nav{ border-bottom: 1px solid #8B8B8B; }
+    .home-nav .nav-op{ padding: 10px; background-color:transparent; font-size: 20px;}
+    #active-op{ border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: #DDDDDD !important;}
+    
+    .home-option { margin-top: 20px; }
+</style>
 <body>
         <div class="home-admin">
             <h1> Giáo viên: @ViewBag.User </h1>
-
+            <div class="home-nav">
+                <button id="active-op" class="nav-op" onclick="op(0)">Tạo đề</button>
+                <button class="nav-op" id=" " onclick="op(1)">Thêm câu hoi</button>
+            </div>
+            <div class="home-option">
+                <div class="op"> <!-- Tạo đề -->
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                        <div class="form-group">
+                            <label for="AdminAccount">Năm học</label>
+                            @Html.TextBoxFor(model => model.NamHoc, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Năm học"
+                               }
+                            )
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminPassword">Số lượng câu</label>
+                            @Html.TextBoxFor(model => model.SoCau, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Số lượng câu hỏi"
+                               }
+                            )
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tạo đề</button>
+                    }                                       
+                </div>
+                <div class="op" style="display: none;">  <!-- Thêm câu hỏi -->
+                    bbbbb
+                </div>
+            </div>
         </div>
+    <script type="text/javascript">
+            function op(e) {
+                let nav = document.getElementsByClassName("nav-op");
+                for (let i = 0; i < nav.length; i++)
+                    nav[i].id = " ";
+                nav[e].id = "active-op";
+                let op = document.getElementsByClassName("op");
+                for (let i = 0; i < op.length; i++)
+                    op[i].style.display = "none";
+                op[e].style.display = "block";
+            }
+    </script>
 </body>
 </html>
