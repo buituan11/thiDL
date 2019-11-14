@@ -175,6 +175,7 @@
     <Content Include="Areas\Student\Views\Home\Index.cshtml" />
     <Content Include="Areas\Student\Views\Signup\Index.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Content\File\dsCauHoi.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

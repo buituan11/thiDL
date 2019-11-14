@@ -34,14 +34,16 @@
 </style>
 <body>
         <div class="home-admin">
-            <h1> Giáo viên: @ViewBag.User </h1>
+            <h1> Giáo viên: @ViewBag.User       <button class="btn btn-danger">Đăng xuất</button> </h1>
+            <h2> @ViewBag.AddQ </h2>
+            <h3> @ViewBag.gtr </h3>
             <div class="home-nav">
                 <button id="active-op" class="nav-op" onclick="op(0)">Tạo đề</button>
-                <button class="nav-op" id=" " onclick="op(1)">Thêm câu hoi</button>
+                <button class="nav-op" id="" onclick="op(1)">Thêm câu hỏi</button>
             </div>
             <div class="home-option">
                 <div class="op"> <!-- Tạo đề -->
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm("Index","Home", FormMethod.Post, new { enctype = "multipart/form-data" })) 
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
@@ -65,11 +67,51 @@
                                }
                             )
                         </div>
+                        <div class="form-group">
+                            <label for="AdminPassword">Số lượng câu loại 1</label>
+                            @Html.TextBoxFor(model => model.loai1, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Số lượng câu loại 1"
+                               }
+                            )
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminPassword">Số lượng câu loại 2</label>
+                            @Html.TextBoxFor(model => model.loai2, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Số lượng câu loại 2"
+                               }
+                            )
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminPassword">Số lượng câu loại 3</label>
+                            @Html.TextBoxFor(model => model.loai3, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @placeholder = "Số lượng câu loại 3"
+                       }
+                            )
+                        </div>
                         <button type="submit" class="btn btn-primary">Tạo đề</button>
                     }                                       
                 </div>
                 <div class="op" style="display: none;">  <!-- Thêm câu hỏi -->
-                    bbbbb
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data"}))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                        <div class="form-group">
+                            <div>
+                                @Html.TextBoxFor(model => model.File, new { type = "file" })
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tạo đề</button>
+                    }
                 </div>
             </div>
         </div>
