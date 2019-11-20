@@ -1,0 +1,85 @@
+﻿
+@{
+    Layout = null;
+}
+@model  ThiDieuLenh.Areas.Menu.Models.MenuModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <script type="text/javascript" src="/Assets/vendor/bootstrap.js"></script>
+    <link rel="stylesheet" href="/Assets/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="/Assets/css/reset.css">
+    <title>Trang chủ</title>
+</head>
+<style>
+    .menu {
+        padding: 0px;
+    }
+
+    .banner {
+        background: url('/Assets/images/banner.jpg') center center;
+        background-size: 100% auto;
+        height: 200px;
+    }
+
+    .login {
+        padding-top: 25px;
+    }
+
+        .login > h1 {
+            text-align: center;
+            font-size: 30px;
+            color: red;
+            font-weight: bold;
+        }
+
+        .login > form {
+            margin: auto;
+            margin-top: 25px;
+            width: 700px;
+            border: 1px solid #0000004f;
+            box-shadow: 2px 3px #00000078;
+            border-radius: 10px;
+            padding: 2% 3%;
+        }
+</style>
+<body>
+    <div class="container-fluid menu">
+        <div class="banner"></div>
+        <div class="login">
+            <h1>HỘI THI ĐIỀU LỆNH KHỐI HỌC VIÊN</h1>
+            <h1>NĂM HỌC 2019-2020</h1>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                <div class="form-group">
+                    <label>Tài khoản</label>
+                    @Html.TextBoxFor(model => model.UserName, new
+                           {
+                               @class = "form-control",
+                               @type = "text",
+                               @placeholder = "Tài khoản"
+                           }
+                        )
+                </div>
+                    <div class="form-group">
+                        <label>Mật khẩu</label>
+                        @Html.TextBoxFor(model => model.Password, new
+                           {
+                               @class = "form-control",
+                               @type = "password",
+                               @placeholder = "Mật khẩu"
+                           }
+                        )
+                    </div>
+                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    
+            }
+        </div>
+    </div>
+</body>
+</html>

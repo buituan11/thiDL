@@ -40,6 +40,33 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
                 
                 ViewBag.AddQ = "Đã thêm thành công câu hỏi";
             }
+            else if (model.id != null || model.FileS != null)
+            {
+                ViewBag.AddQ = "Đã thêm thành công hs";
+                if (model.id != null)
+                {
+                    var res = new StudentModel().Login(model.id, model.NamHocS);
+                    if (!res)
+                    {
+                        new StudentModel().Add(1,model.id, model.NamHocS, model.HoTen, model.Lop, model.ChuyenKhoa);
+                    }
+                    else
+                    {
+                        ViewBag.AddQ = "Thí sinh đã có trong danh sách";
+                    }
+                }
+                var fileS = model.FileS;
+                if (fileS != null && fileS.ContentLength > 0)
+                {
+                    foreach (Process proc in Process.GetProcessesByName("excel")) { proc.Kill(); }
+                    string filePath = HttpContext.Server.MapPath("~/dsThiSinh.xlsx");
+                    string extension = Path.GetExtension(fileS.FileName);
+                    string fileName = $"dsThiSinh{extension}";
+                    fileS.SaveAs(filePath);
+                    new StudentModel().AddS(filePath);
+                    foreach (Process proc in Process.GetProcessesByName("excel")) { proc.Kill(); }
+                }
+            }
             else
             {
                 ViewBag.AddQ = "Đã thêm thành công đề";

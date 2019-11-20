@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ThiDieuLenh.Areas.Student.Models
+namespace ThiDieuLenh.Areas.Menu.Models
 {
-    public class LoginModel
+    public class MenuModel
     {
         [Required]
-        public string SoHieu { set; get; }
-        public string NamHoc { set; get; }
+        public string UserName { set; get; }
+        public string Password { set; get; }
     }
 }

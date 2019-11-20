@@ -36,10 +36,10 @@
         <div class="home-admin">
             <h1> Giáo viên: @ViewBag.User       <button class="btn btn-danger">Đăng xuất</button> </h1>
             <h2> @ViewBag.AddQ </h2>
-            <h3> @ViewBag.gtr </h3>
             <div class="home-nav">
                 <button id="active-op" class="nav-op" onclick="op(0)">Tạo đề</button>
                 <button class="nav-op" id="" onclick="op(1)">Thêm câu hỏi</button>
+                <button class="nav-op" id="" onclick="op(2)">Thêm thí sinh</button>
             </div>
             <div class="home-option">
                 <div class="op"> <!-- Tạo đề -->
@@ -112,6 +112,71 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Tạo đề</button>
                     }
+                </div>
+                <div class="op" style="display: none;"> <!--Thêm thí sinh-->
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                        <div class="form-group">
+                            <label for="AdminAccount">Số hiệu</label>
+                            @Html.TextBoxFor(model => model.id, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Số hiệu"
+                               }
+                            )
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminPassword">Năm học</label>
+                            <div class="row">
+                                @Html.TextBoxFor(model => model.NamHocS, new
+                                   {
+                                       @class = "form-control",
+                                       @type = "text",
+                                       @placeholder = "Năm Học"
+                                   }
+                                )
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminPassword">Họ và tên</label>
+                            @Html.TextBoxFor(model => model.HoTen, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Họ và tên"
+                               }
+                            )
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminPassword">Lớp</label>
+                            @Html.TextBoxFor(model => model.Lop, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Lớp"
+                               }
+                            )
+                        </div>
+                        <div class="form-group">
+                            <label for="AdminPassword">Chuyên khoa</label>
+                            @Html.TextBoxFor(model => model.ChuyenKhoa, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Chuyên Khoa"
+                               }
+                            )
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                @Html.TextBoxFor(model => model.FileS, new { type = "file" })
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm thí sinh</button>
+                    }  
                 </div>
             </div>
         </div>

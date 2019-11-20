@@ -25,7 +25,7 @@ namespace ThiDieuLenh.Areas.Student.Controllers
                 var res = new StudentModel().Login(model.SoHieu, model.NamHoc);
                 if (!res)
                 {
-                    new StudentModel().Add(model.SoHieu, model.NamHoc, model.HoTen, model.Lop, model.ChuyenKhoa);
+                    new StudentModel().Add(1,model.SoHieu, model.NamHoc, model.HoTen, model.Lop, model.ChuyenKhoa);
                     return RedirectToAction("Index", "Login");
                 }
                 else

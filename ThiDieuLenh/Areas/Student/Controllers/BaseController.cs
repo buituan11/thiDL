@@ -16,7 +16,7 @@ namespace ThiDieuLenh.Areas.Student.Controllers
             if (sess == null)
             {
                 filterContext.Result = new RedirectToRouteResult(new
-                    RouteValueDictionary(new { controller = "Login", action = "Index", Area = "Student" }));
+                    RouteValueDictionary(new { controller = "Menu", action = "Index", Area = "Menu" }));
             }
             base.OnActionExecuting(filterContext);
         }

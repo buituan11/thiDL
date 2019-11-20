@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 using System.Data.Common;
 using Microsoft.Office.Interop.Excel;
-using DbDieuLenh.Framework;
 using System;
 using System.Data;
 
@@ -10,21 +9,19 @@ namespace DbDieuLenh
 {
     public class AccountModel
     {
-        private DLDbContext context = null;
         private SqlConnection con = new SqlConnection(@"data source=.;initial catalog=DieuLenh;user id=sa;password=buituan112;MultipleActiveResultSets=True;App=EntityFramework");
         private SqlCommand cmd = new SqlCommand();
 
 
         public AccountModel()
         {
-            context = new DLDbContext();
             con.Open();
             cmd.Connection = con;
         }
         public bool Login(string user, string pass)
         {
             var res = false;
-            cmd.CommandText = "select * from tbQuanLy";
+            cmd.CommandText = "select * from tbUser;";
 
             using (DbDataReader reader = cmd.ExecuteReader())
             {
@@ -44,10 +41,10 @@ namespace DbDieuLenh
             }
             return res;
         }
-        public string GetName(string user)
+        public string GetId(string user)
         {
-            var res = "";
-            cmd.CommandText = "select * from tbQuanLy";
+            var id = "";
+            cmd.CommandText = "select * from tbUser;";
 
             using (DbDataReader reader = cmd.ExecuteReader())
             {
@@ -58,7 +55,53 @@ namespace DbDieuLenh
                         string dbUser = reader.GetString(0);
                         if (user == dbUser)
                         {
-                            res = reader.GetString(2);
+                            id = reader.GetString(2);
+                        }
+
+                    }
+                }
+            }
+            return id;
+        }
+        public string GetNamHoc(string user)
+        {
+            var NamHoc = "";
+            cmd.CommandText = "select * from tbUser;";
+
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string dbUser = reader.GetString(0);
+                        if (user == dbUser)
+                        {
+                            NamHoc = reader.GetString(3);
+                        }
+
+                    }
+                }
+            }
+            return NamHoc;
+        }
+
+        // Admin
+        public string GetName(string id)
+        {
+
+            cmd.CommandText = "select * from tbQuanLy;";
+            var res = ""; 
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string dbID = reader.GetString(0);
+                        if (id == dbID)
+                        {
+                            res = reader.GetString(1);
                         }
 
                     }
@@ -117,6 +160,29 @@ namespace DbDieuLenh
                 int run = cmd.ExecuteNonQuery();
             }
             return gtr;
+        }
+
+        //Student
+        public string GetNameS(string id, string NamHoc)
+        {
+            cmd.CommandText = "select * from tbThiSinh;";
+            var res = "";
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string dbID = reader.GetString(0);
+                        string dbNamHoc = reader.GetString(1);
+                        if (id == dbID && NamHoc == dbNamHoc)
+                        {
+                            res = reader.GetString(2);
+                        }
+                    }
+                }
+            }
+            return res;
         }
     }
 }

@@ -125,11 +125,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\css\home_admin.css" />
-    <Content Include="Assets\css\login_admin.css" />
-    <Content Include="Assets\css\login_student.css" />
-    <Content Include="Assets\css\menu.css" />
-    <Content Include="Assets\css\signup_student.css" />
+    <Content Include="Assets\css\reset.css" />
+    <Content Include="Assets\images\banner.jpg" />
     <Content Include="Assets\images\logo.jpg" />
     <Content Include="Assets\js\homeAdmin.js" />
     <Content Include="Global.asax" />
@@ -144,18 +141,17 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Models\HomeModel.cs" />
-    <Compile Include="Areas\Admin\Models\LoginModel.cs" />
+    <Compile Include="Areas\Menu\Controllers\MenuController.cs" />
+    <Compile Include="Areas\Menu\MenuAreaRegistration.cs" />
+    <Compile Include="Areas\Menu\Models\MenuModel.cs" />
     <Compile Include="Areas\Student\Controllers\BaseController.cs" />
     <Compile Include="Areas\Student\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Student\Controllers\LoginController.cs" />
     <Compile Include="Areas\Student\Controllers\SignupController.cs" />
-    <Compile Include="Areas\Student\Models\LoginModel.cs" />
     <Compile Include="Areas\Student\Models\SignupModel.cs" />
     <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
     <Compile Include="Common\CommonConstant.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,14 +164,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Student\Views\web.config" />
-    <Content Include="Areas\Student\Views\Login\index.cshtml" />
     <Content Include="Areas\Student\Views\Home\Index.cshtml" />
     <Content Include="Areas\Student\Views\Signup\Index.cshtml" />
-    <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Content\File\dsCauHoi.xlsx" />
+    <Content Include="Areas\Menu\Views\web.config" />
+    <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
+    <Content Include="dsCauHoi.xlsx" />
+    <Content Include="dsThiSinh.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -187,6 +184,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Menu\Views\Shared\" />
     <Folder Include="Areas\Student\Views\Base\" />
     <Folder Include="Areas\Student\Views\Shared\" />
     <Folder Include="Assets\fonts\" />

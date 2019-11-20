@@ -16,7 +16,7 @@ namespace ThiDieuLenh
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Menu", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Start", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
