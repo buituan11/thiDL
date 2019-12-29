@@ -150,7 +150,7 @@
     <Compile Include="Areas\Student\Controllers\SignupController.cs" />
     <Compile Include="Areas\Student\Models\SignupModel.cs" />
     <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
-    <Compile Include="Common\CommonConstant.cs" />
+    <Compile Include="Areas\Common\CommonConstant.cs" />
     <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

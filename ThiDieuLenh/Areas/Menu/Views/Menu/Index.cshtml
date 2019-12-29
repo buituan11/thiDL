@@ -15,71 +15,183 @@
     <title>Trang chủ</title>
 </head>
 <style>
-    .menu {
-        padding: 0px;
+    .root{
+        height: 100vh;
+        overflow: hidden;
     }
-
-    .banner {
-        background: url('/Assets/images/banner.jpg') center center;
-        background-size: 100% auto;
+    .top{
+        padding: 2% 0px;
+        background-color: red;
         height: 200px;
+        text-align: center;
     }
-
-    .login {
-        padding-top: 25px;
+    .top>h1{
+        font-size: 60px;
+        font-weight: bold;
+        color: yellow;
     }
-
-        .login > h1 {
-            text-align: center;
-            font-size: 30px;
-            color: red;
-            font-weight: bold;
-        }
-
-        .login > form {
-            margin: auto;
-            margin-top: 25px;
-            width: 700px;
-            border: 1px solid #0000004f;
-            box-shadow: 2px 3px #00000078;
-            border-radius: 10px;
-            padding: 2% 3%;
-        }
+    .border-login{
+        padding: 20px;
+        background-color: orange;
+        height: 100%;
+    }
+    .login{
+        background-color: white;
+        border-radius: 20px;
+        padding: 15px;
+        height: 100%;   
+    }
+    .login-title{
+        display:flex;
+        padding-top: 40px;
+    }
+    .login-title>img{
+        height: 50px;
+    }
+    .login-title>h1{
+        color: red;
+        font-size: 30px;
+    }
+    .option{
+        text-align: right;
+        font-size: 25px;
+        padding: 20px; 
+        border: 1px solid olive;
+        border-left: none;
+        border-bottom: none;
+    }
+    .option:last-child{ border-bottom: 1px solid olive;}
+    .option>img{ height: 30px;}
+    #active{ 
+        background-color:  olive;
+    }
 </style>
 <body>
-    <div class="container-fluid menu">
-        <div class="banner"></div>
-        <div class="login">
+    <div class="root">
+        <div class="top">
             <h1>HỘI THI ĐIỀU LỆNH KHỐI HỌC VIÊN</h1>
             <h1>NĂM HỌC 2019-2020</h1>
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                <div class="form-group">
-                    <label>Tài khoản</label>
-                    @Html.TextBoxFor(model => model.UserName, new
-                           {
-                               @class = "form-control",
-                               @type = "text",
-                               @placeholder = "Tài khoản"
-                           }
-                        )
-                </div>
-                    <div class="form-group">
-                        <label>Mật khẩu</label>
-                        @Html.TextBoxFor(model => model.Password, new
-                           {
-                               @class = "form-control",
-                               @type = "password",
-                               @placeholder = "Mật khẩu"
-                           }
-                        )
-                    </div>
-                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                    
-            }
         </div>
+       <div class="border-login">
+           <div class="login">
+               <div class="login-title">
+                   <img src="~/Assets/images/login.png" />
+                   <h1> Đăng nhập hệ thống </h1>
+               </div>
+               <div class="container-fluid login-detail">
+                   <div class="row">
+                       <div class="col-lg-2"></div>
+                       <div class="col-lg-4">
+                           <div class="option" id="active" onclick="op(0)"> Giáo viên <img src="~/Assets/images/teacher.png"/></div>
+                           <div class="option" id="" onclick="op(1)"> Học sinh <img src="~/Assets/images/student.png"/></div>
+                           <div class="option" id="" onclick="op(2)"> Quản lý <img src="~/Assets/images/management.png"/></div>
+                       </div>
+                       <div class="op col-lg-4" style="display: block;">
+                           @using (Html.BeginForm())
+                           {
+                               @Html.AntiForgeryToken()
+                               @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                               <div class="form-group">
+                                   <label>Giáo viên</label>
+                                   @Html.TextBoxFor(model => model.UserName, new
+                          {
+                              @class = "form-control",
+                              @type = "text",
+                              @placeholder = "Giáo viên"
+                          }
+                            )
+                               </div>
+                               <div class="form-group">
+                                   <label>Mật khẩu</label>
+                                   @Html.TextBoxFor(model => model.Password, new
+                          {
+                              @class = "form-control",
+                              @type = "password",
+                              @placeholder = "Mật khẩu"
+                          }
+                            )
+                               </div>
+                               <button type="submit" class="btn btn-primary">Đăng nhập</button>
+
+                           }
+                       </div>
+                       <div class="op col-lg-4" style="display: none;">
+                           @using (Html.BeginForm())
+                           {
+                               @Html.AntiForgeryToken()
+                               @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                               <div class="form-group">
+                                   <label>Số hiệu</label>
+                                   @Html.TextBoxFor(model => model.UserName, new
+                              {
+                                  @class = "form-control",
+                                  @type = "text",
+                                  @placeholder = "Số hiệu"
+                              }
+                            )
+                               </div>
+                               <div class="form-group">
+                                   <label>Mật khẩu</label>
+                                   @Html.TextBoxFor(model => model.Password, new
+                              {
+                                  @class = "form-control",
+                                  @type = "password",
+                                  @placeholder = "Mật khẩu"
+                              }
+                            )
+                               </div>
+                               <button type="submit" class="btn btn-primary">Đăng nhập</button>
+
+                           }
+                       </div>
+                       <div class="op col-lg-4" style="display: none;">
+                           @using (Html.BeginForm())
+                           {
+                               @Html.AntiForgeryToken()
+                               @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                               <div class="form-group">
+                                   <label>Tài khoản</label>
+                                   @Html.TextBoxFor(model => model.UserName, new
+                              {
+                                  @class = "form-control",
+                                  @type = "text",
+                                  @placeholder = "Tài khoản"
+                              }
+                            )
+                               </div>
+                               <div class="form-group">
+                                   <label>Mật khẩu</label>
+                                   @Html.TextBoxFor(model => model.Password, new
+                              {
+                                  @class = "form-control",
+                                  @type = "password",
+                                  @placeholder = "Mật khẩu"
+                              }
+                            )
+                               </div>
+
+                               <button type="submit" class="btn btn-primary">Đăng nhập</button>
+
+                           }
+                       </div>
+                       <div class="col-lg-2"></div>
+                   </div>
+                   </div>
+           </div>
+
+       </div>
     </div>
+    <script type="text/javascript"> 
+        function op(arg) {
+            let option = document.getElementsByClassName("option");
+            for (let i = 0; i < option.length; i++)
+                option[i].id = "";
+            option[arg].id = "active";
+            let op = document.getElementsByClassName("op");
+            for (let i = 0; i < op.length; i++)
+                op[i].style.display = "none";
+            op[arg].style.display = "block";
+        }   
+    </script>
 </body>
 </html>

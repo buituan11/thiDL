@@ -11,7 +11,7 @@ namespace DbDieuLenh
     {
         private SqlConnection con = new SqlConnection(@"data source=.;initial catalog=DieuLenh;user id=sa;password=buituan112;MultipleActiveResultSets=True;App=EntityFramework");
         private SqlCommand cmd = new SqlCommand();
-
+        //DESKTOP-SSAH8PS\SQLEXPRESS
 
         public AccountModel()
         {
