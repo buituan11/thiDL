@@ -15,171 +15,213 @@
     <title>Index</title>
 </head>
 <style>
-    body{
-        background-color: #77C35E;
-    }
     .home-admin{
         background-color: white;
-        width:900px;
         padding: 5%;
-        margin: 0px auto;
-        margin-top: 100px;
+        height: 100vh;
     }
     .home-admin h1{ font-size: 30px; margin-bottom: 10px; }
-    .home-nav{ border-bottom: 1px solid #8B8B8B; }
-    .home-nav .nav-op{ padding: 10px; background-color:transparent; font-size: 20px;}
-    #active-op{ border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: #DDDDDD !important;}
-    
-    .home-option { margin-top: 20px; }
+    .home-option{
+        width: 700px;
+    }
+    .nav{
+        display: flex;
+        flex-direction: column;
+        background-color: #30303D;
+        padding: 0px;
+        padding-top: 2%;
+    }
+    .nav>h1{
+        font-size: 30px;
+        color: white;
+        margin-bottom: 20px;
+    }
+    .nav>button{
+        position: fixed;
+        left: 6%;
+        bottom: 0px;
+    }
+    .nav-op{
+        padding: 20px 0px;
+        text-align: center;
+        font-size: 20px;
+        color: white; 
+    }
+    #active-op{
+        background-color: #3A3A46;
+        border-right: 10px solid #007bff;
+    }
 </style>
 <body>
-        <div class="home-admin">
-            <h1> Giáo viên: @ViewBag.User       <button class="btn btn-danger">Đăng xuất</button> </h1>
-            <h2> @ViewBag.AddQ </h2>
-            <div class="home-nav">
-                <button id="active-op" class="nav-op" onclick="op(0)">Tạo đề</button>
-                <button class="nav-op" id="" onclick="op(1)">Thêm câu hỏi</button>
-                <button class="nav-op" id="" onclick="op(2)">Thêm thí sinh</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 nav">
+                <h1> Giáo viên: @ViewBag.User </h1>
+                <div class="nav-op" id="active-op" onclick="op(0)"> Tạo đề</div>
+                <div class="nav-op" onclick="op(1)"> Thêm câu hỏi </div>
+                <div class="nav-op" onclick="op(2)"> Thêm thí sinh </div>
+                <button class="btn btn-danger">Đăng xuất</button>
+                <h2> @ViewBag.AddQ </h2>
             </div>
-            <div class="home-option">
-                <div class="op"> <!-- Tạo đề -->
-                    @using (Html.BeginForm("Index","Home", FormMethod.Post, new { enctype = "multipart/form-data" })) 
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                        <div class="form-group">
-                            <label for="AdminAccount">Năm học</label>
-                            @Html.TextBoxFor(model => model.NamHoc, new
-                               {
-                                   @class = "form-control",
-                                   @type = "text",
-                                   @placeholder = "Năm học"
-                               }
+            <div class="home-admin col-lg-9">
+                <div class="home-option">
+                    <div class="op">
+                        <!-- Tạo đề -->
+                        <h1> Tạo đề </h1>
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                            <div class="form-group">
+                                <label for="AdminAccount">Năm học</label>
+                                @Html.TextBoxFor(model => model.NamHoc, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @placeholder = "Năm học"
+                       }
                             )
-                        </div>
-                        <div class="form-group">
-                            <label for="AdminPassword">Số lượng câu</label>
-                            @Html.TextBoxFor(model => model.SoCau, new
-                               {
-                                   @class = "form-control",
-                                   @type = "text",
-                                   @placeholder = "Số lượng câu hỏi"
-                               }
+                            </div>
+                            <div class="form-group">
+                                <label for="AdminPassword">Số lượng câu</label>
+                                @Html.TextBoxFor(model => model.SoCau, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @placeholder = "Số lượng câu hỏi"
+                       }
                             )
-                        </div>
-                        <div class="form-group">
-                            <label for="AdminPassword">Số lượng câu loại 1</label>
-                            @Html.TextBoxFor(model => model.loai1, new
-                               {
-                                   @class = "form-control",
-                                   @type = "text",
-                                   @placeholder = "Số lượng câu loại 1"
-                               }
+                            </div>
+                            <div class="form-group">
+                                <label for="AdminPassword">Số lượng câu loại 1</label>
+                                @Html.TextBoxFor(model => model.loai1, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @placeholder = "Số lượng câu loại 1"
+                       }
                             )
-                        </div>
-                        <div class="form-group">
-                            <label for="AdminPassword">Số lượng câu loại 2</label>
-                            @Html.TextBoxFor(model => model.loai2, new
-                               {
-                                   @class = "form-control",
-                                   @type = "text",
-                                   @placeholder = "Số lượng câu loại 2"
-                               }
+                            </div>
+                            <div class="form-group">
+                                <label for="AdminPassword">Số lượng câu loại 2</label>
+                                @Html.TextBoxFor(model => model.loai2, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @placeholder = "Số lượng câu loại 2"
+                       }
                             )
-                        </div>
-                        <div class="form-group">
-                            <label for="AdminPassword">Số lượng câu loại 3</label>
-                            @Html.TextBoxFor(model => model.loai3, new
+                            </div>
+                            <div class="form-group">
+                                <label for="AdminPassword">Số lượng câu loại 3</label>
+                                @Html.TextBoxFor(model => model.loai3, new
                        {
                            @class = "form-control",
                            @type = "text",
                            @placeholder = "Số lượng câu loại 3"
                        }
                             )
-                        </div>
-                        <button type="submit" class="btn btn-primary">Tạo đề</button>
-                    }                                       
-                </div>
-                <div class="op" style="display: none;">  <!-- Thêm câu hỏi -->
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data"}))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                        <div class="form-group">
-                            <div>
-                                @Html.TextBoxFor(model => model.File, new { type = "file" })
                             </div>
+                            <button type="submit" class="btn btn-primary">Tạo đề</button>
+                        }
+                    </div>
+                    <div class="op" style="display: none;">
+                        <!-- Thêm câu hỏi -->
+                        <h1> Thêm câu hỏi </h1>
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                            <div class="form-group">
+                                <div>
+                                    @Html.TextBoxFor(model => model.File, new { type = "file" })
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label>Câu hỏi: </label>
+                            <input type="text" class="form-control" placeholder="Câu hỏi"/>                            
+                            <label>Đáp án A: </label>
+                            <input type="text" class="form-control" placeholder="Câu hỏi" />                            
+                            <label>Đáp án B: </label>
+                            <input type="text" class="form-control" placeholder="Câu hỏi" />                            
+                            <label>Đáp án C: </label>
+                            <input type="text" class="form-control" placeholder="Câu hỏi" />                            
+                            <label>Đáp án D: </label>
+                            <input type="text" class="form-control" placeholder="Câu hỏi" />                            
                         </div>
                         <button type="submit" class="btn btn-primary">Tạo đề</button>
-                    }
-                </div>
-                <div class="op" style="display: none;"> <!--Thêm thí sinh-->
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                        <div class="form-group">
-                            <label for="AdminAccount">Số hiệu</label>
-                            @Html.TextBoxFor(model => model.id, new
-                               {
-                                   @class = "form-control",
-                                   @type = "text",
-                                   @placeholder = "Số hiệu"
-                               }
-                            )
-                        </div>
-                        <div class="form-group">
-                            <label for="AdminPassword">Năm học</label>
-                            <div class="row">
-                                @Html.TextBoxFor(model => model.NamHocS, new
+                    </div>
+                    <div class="op" style="display: none;">
+                        <!--Thêm thí sinh-->
+                        <h1> Thêm thí sinh </h1>
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                            <div class="form-group">
+                                <label for="AdminAccount">Số hiệu</label>
+                                @Html.TextBoxFor(model => model.id, new
                                    {
                                        @class = "form-control",
                                        @type = "text",
-                                       @placeholder = "Năm Học"
+                                       @placeholder = "Số hiệu"
                                    }
+                            )
+                            </div>
+                            <div class="form-group">
+                                <label for="AdminPassword">Năm học</label>
+                                @Html.TextBoxFor(model => model.NamHocS, new
+                                    {
+                                        @class = "form-control",
+                                        @type = "text",
+                                        @placeholder = "Năm Học"
+                                    }
                                 )
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="AdminPassword">Họ và tên</label>
-                            @Html.TextBoxFor(model => model.HoTen, new
-                               {
-                                   @class = "form-control",
-                                   @type = "text",
-                                   @placeholder = "Họ và tên"
-                               }
+                            <div class="form-group">
+                                <label for="AdminPassword">Họ và tên</label>
+                                @Html.TextBoxFor(model => model.HoTen, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @placeholder = "Họ và tên"
+                       }
                             )
-                        </div>
-                        <div class="form-group">
-                            <label for="AdminPassword">Lớp</label>
-                            @Html.TextBoxFor(model => model.Lop, new
-                               {
-                                   @class = "form-control",
-                                   @type = "text",
-                                   @placeholder = "Lớp"
-                               }
-                            )
-                        </div>
-                        <div class="form-group">
-                            <label for="AdminPassword">Chuyên khoa</label>
-                            @Html.TextBoxFor(model => model.ChuyenKhoa, new
-                               {
-                                   @class = "form-control",
-                                   @type = "text",
-                                   @placeholder = "Chuyên Khoa"
-                               }
-                            )
-                        </div>
-                        <div class="form-group">
-                            <div>
-                                @Html.TextBoxFor(model => model.FileS, new { type = "file" })
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Thêm thí sinh</button>
-                    }  
+                            <div class="form-group">
+                                <label for="AdminPassword">Lớp</label>
+                                @Html.TextBoxFor(model => model.Lop, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @placeholder = "Lớp"
+                       }
+                            )
+                            </div>
+                            <div class="form-group">
+                                <label for="AdminPassword">Chuyên khoa</label>
+                                @Html.TextBoxFor(model => model.ChuyenKhoa, new
+                       {
+                           @class = "form-control",
+                           @type = "text",
+                           @placeholder = "Chuyên Khoa"
+                       }
+                            )
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    @Html.TextBoxFor(model => model.FileS, new { type = "file" })
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Thêm thí sinh</button>
+                        }
+                    </div>
                 </div>
             </div>
+
         </div>
+    </div>
     <script type="text/javascript">
             function op(e) {
                 let nav = document.getElementsByClassName("nav-op");
