@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/Assets/vendor/bootstrap.js"></script>
     <link rel="stylesheet" href="/Assets/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="/Assets/css/reset.css" />
-    <title>Index</title>
+    <title>Trang chủ</title>
 </head>
 <style>
     .home-admin{
@@ -21,6 +21,7 @@
         height: 100vh;
     }
     .home-admin h1{ font-size: 30px; margin-bottom: 10px; }
+    .home-admin>h2{ font-size: 15px; color: red;}
     .home-option{
         width: 700px;
     }
@@ -61,9 +62,10 @@
                 <div class="nav-op" onclick="op(1)"> Thêm câu hỏi </div>
                 <div class="nav-op" onclick="op(2)"> Thêm thí sinh </div>
                 <button class="btn btn-danger">Đăng xuất</button>
-                <h2> @ViewBag.AddQ </h2>
+                
             </div>
             <div class="home-admin col-lg-9">
+                <h2> @ViewBag.AddQ </h2>
                 <div class="home-option">
                     <div class="op">
                         <!-- Tạo đề -->
@@ -171,13 +173,28 @@
                             </div>
                             <div class="form-group">
                                 <label for="AdminPassword">Năm học</label>
-                                @Html.TextBoxFor(model => model.NamHocS, new
-                                    {
-                                        @class = "form-control",
-                                        @type = "text",
-                                        @placeholder = "Năm Học"
-                                    }
-                                )
+                                <div class="row" style="margin: 0px">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.NamHocS1, new
+                                           {
+                                               @class = "form-control",
+                                               @type = "text",
+                                               @placeholder = "Năm Học"
+                                           }
+                                           )
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.NamHocS2, new
+                                   {
+                                       @class = "form-control",
+                                       @type = "text",
+                                       @placeholder = "Năm Học"
+                                   }
+                                           )
+                                    </div>
+
+                                </div>
+                                    
                             </div>
                             <div class="form-group">
                                 <label for="AdminPassword">Họ và tên</label>

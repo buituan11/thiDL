@@ -15,7 +15,8 @@ namespace ThiDieuLenh.Areas.Admin.Models
         public HttpPostedFileBase File { set; get; }
 
         public string id { set; get; }
-        public string NamHocS { set; get; }
+        public string NamHocS1 { set; get; }
+        public string NamHocS2 { set; get; }
         public string HoTen { set; get; }
         public string Lop { set; get; }
         public string ChuyenKhoa { set; get; }

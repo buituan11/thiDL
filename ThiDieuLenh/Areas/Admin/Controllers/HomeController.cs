@@ -42,13 +42,13 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
             }
             else if (model.id != null || model.FileS != null)
             {
-                ViewBag.AddQ = "Đã thêm thành công hs";
+                ViewBag.AddQ = "Đã thêm thành công hoc sinh";
                 if (model.id != null)
                 {
-                    var res = new StudentModel().Login(model.id, model.NamHocS);
+                    var res = new StudentModel().Login(model.id, model.NamHocS1);
                     if (!res)
                     {
-                        new StudentModel().Add(1,model.id, model.NamHocS, model.HoTen, model.Lop, model.ChuyenKhoa);
+                        new StudentModel().Add(1,model.id, model.NamHocS1, model.NamHocS2, model.HoTen, model.Lop, model.ChuyenKhoa);
                     }
                     else
                     {

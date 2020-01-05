@@ -11,5 +11,7 @@ namespace ThiDieuLenh.Areas.Menu.Models
         [Required]
         public string UserName { set; get; }
         public string Password { set; get; }
+        public string UserS { set; get; }
+        public string UserQL { set; get; }
     }
 }

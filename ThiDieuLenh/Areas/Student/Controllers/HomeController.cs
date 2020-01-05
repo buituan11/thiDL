@@ -12,7 +12,10 @@ namespace ThiDieuLenh.Areas.Student.Controllers
         // GET: Student/Home
         public ActionResult Index()
         {
-            ViewBag.User = Session[CommonConstant.STUDENT_SESSION];
+            if (Session[CommonConstant.STUDENT_SESSION] != "")
+                ViewBag.User = Session[CommonConstant.STUDENT_SESSION];
+            else
+                ViewBag.User = "null";
             return View();
         }
     }
