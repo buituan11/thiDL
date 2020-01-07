@@ -9,6 +9,7 @@ using ThiDieuLenh.Areas.Admin.Models;
 using ThiDieuLenh.Common;
 using DbDieuLenh;
 using System.Diagnostics;
+using System.Web.Routing;
 
 namespace ThiDieuLenh.Areas.Admin.Controllers
 {
@@ -28,7 +29,7 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
         {
             ViewBag.User = Session[CommonConstant.ADMIN_SESSION];
             var file = model.File;
-            if (file != null && file.ContentLength > 0)
+            if (file != null && file.ContentLength > 0)                 //Them cau hoi
             {
                 foreach (Process proc in Process.GetProcessesByName("excel")){ proc.Kill(); }
                 string filePath = HttpContext.Server.MapPath("~/dsCauHoi.xlsx");
@@ -40,7 +41,7 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
                 
                 ViewBag.AddQ = "Đã thêm thành công câu hỏi";
             }
-            else if (model.id != null || model.FileS != null)
+            else if (model.id != null || model.FileS != null)           //Them thi sinh
             {
                 ViewBag.AddQ = "Đã thêm thành công hoc sinh";
                 if (model.id != null)
@@ -67,9 +68,14 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
                     foreach (Process proc in Process.GetProcessesByName("excel")) { proc.Kill(); }
                 }
             }
-            else
+            else if (model.NamHoc != null)
             {
                 ViewBag.AddQ = "Đã thêm thành công đề";
+            }
+            else
+            {                                                                   //Dang xuat
+                Session[CommonConstant.ADMIN_SESSION] = null;
+                return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Menu", action = "Index", Area = "Menu" }));
             }
             return View();
         }

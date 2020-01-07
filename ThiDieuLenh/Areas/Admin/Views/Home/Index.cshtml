@@ -52,6 +52,10 @@
         background-color: #3A3A46;
         border-right: 10px solid #007bff;
     }
+    .log-out{
+        position: absolute;
+        bottom: 0px;
+    }
 </style>
 <body>
     <div class="container-fluid">
@@ -61,8 +65,15 @@
                 <div class="nav-op" id="active-op" onclick="op(0)"> Tạo đề</div>
                 <div class="nav-op" onclick="op(1)"> Thêm câu hỏi </div>
                 <div class="nav-op" onclick="op(2)"> Thêm thí sinh </div>
-                <button class="btn btn-danger">Đăng xuất</button>
-                
+                @if (ViewBag.User == "ADMIN")
+                {
+                    <div class="nav-op" onclick="op(3)"> Thêm giáo viên </div>
+                }
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button class="log-out btn btn-danger" type="submit">Đăng xuất</button>
+                }
             </div>
             <div class="home-admin col-lg-9">
                 <h2> @ViewBag.AddQ </h2>
@@ -167,7 +178,7 @@
                                    {
                                        @class = "form-control",
                                        @type = "text",
-                                       @placeholder = "Số hiệu"
+                                       @placeholder = "Số hiệu" 
                                    }
                             )
                             </div>
@@ -227,11 +238,69 @@
                             )
                             </div>
                             <div class="form-group">
+                                <label>Thêm thí sinh theo danh sách</label>
                                 <div>
                                     @Html.TextBoxFor(model => model.FileS, new { type = "file" })
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Thêm thí sinh</button>
+                        }
+                        
+                    </div>
+                    <div class="op" style="display: none">
+                        <!-- Thêm giáo viên -->
+                        <h1> Thêm giáo viên </h1>
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                            <div class="form-group">
+                                <label for="AdminAccount">Năm học</label>
+                                @Html.TextBoxFor(model => model.NamHocGV, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Năm học"
+                               }
+                            )
+                            </div>
+                                <div class="form-group">
+                                    <label for="AdminPassword">Họ và tên</label>
+                                    @Html.TextBoxFor(model => model.HoTenGV, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Họ và tên"
+                               }
+                            )
+                                </div>
+                                <div class="form-group">
+                                    <label for="AdminPassword">Tài khoản</label>
+                                    @Html.TextBoxFor(model => model.TaiKhoan, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Tài khoản"
+                               }
+                            )
+                                </div>
+                                <div class="form-group">
+                                    <label for="AdminPassword">Mật khẩu</label>
+                                    @Html.TextBoxFor(model => model.MatKhau, new
+                               {
+                                   @class = "form-control",
+                                   @type = "password",
+                                   @placeholder = "Mật khẩu"
+                               }
+                            )
+                                </div>
+                                <div class="form-group">
+                                    <label>Thêm giáo viên theo danh sách</label>
+                                    <div>
+                                        @Html.TextBoxFor(model => model.FileGV, new { type = "file" })
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Thêm giáo viên</button>
                         }
                     </div>
                 </div>
@@ -244,10 +313,12 @@
                 let nav = document.getElementsByClassName("nav-op");
                 for (let i = 0; i < nav.length; i++)
                     nav[i].id = " ";
+                console.log(nav);
                 nav[e].id = "active-op";
                 let op = document.getElementsByClassName("op");
                 for (let i = 0; i < op.length; i++)
                     op[i].style.display = "none";
+                console.log(op[3]);
                 op[e].style.display = "block";
             }
     </script>

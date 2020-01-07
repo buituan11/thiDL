@@ -12,7 +12,7 @@ namespace ThiDieuLenh.Controllers
         // GET: Start
         public ActionResult Index()
         {
-            return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Menu", action = "Index", Area = "Menu" })); ;
+            return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Menu", action = "Index", Area = "Menu" })); 
         }
     }
 }
