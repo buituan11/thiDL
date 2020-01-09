@@ -72,6 +72,34 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
             {
                 ViewBag.AddQ = "Đã thêm thành công đề";
             }
+
+            else if (model.NamHocGV != null || model.FileGV != null)
+            {
+                ViewBag.AddQ = "Đã thêm thành công giáo viên";
+                if (model.NamHocGV != null)
+                {
+                    var res = new AccountModel().Login(model.TaiKhoan, model.MatKhau);
+                    if (!res)
+                    {
+                        new AccountModel().AddGV(model.NamHocGV, model.HoTenGV, model.TaiKhoan, model.MatKhau);
+                    }
+                }
+                var fileGV = model.FileGV;
+                if (fileGV != null && fileGV.ContentLength > 0)
+                {
+                    foreach (Process proc in Process.GetProcessesByName("excel")) { proc.Kill(); }
+                    string filePath = HttpContext.Server.MapPath("~/dsGV.xlsx");
+                    string extension = Path.GetExtension(fileGV.FileName);
+                    string fileName = $"dsGV{extension}";
+                    fileGV.SaveAs(filePath);
+                    new AccountModel().AddDsGV(filePath);
+                    foreach (Process proc in Process.GetProcessesByName("excel")) { proc.Kill(); }
+                }
+
+
+            }
+
+
             else
             {                                                                   //Dang xuat
                 Session[CommonConstant.ADMIN_SESSION] = null;

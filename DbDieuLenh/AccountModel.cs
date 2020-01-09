@@ -11,12 +11,30 @@ namespace DbDieuLenh
     {
         private SqlConnection con = new SqlConnection(@"data source=.;initial catalog=DieuLenh;user id=sa;password=buituan112;MultipleActiveResultSets=True;App=EntityFramework");
         private SqlCommand cmd = new SqlCommand();
+        private SqlConnection con1 = new SqlConnection(@"data source=.;initial catalog=DieuLenh;user id=sa;password=buituan112;MultipleActiveResultSets=True;App=EntityFramework");
+        private SqlCommand cmd1 = new SqlCommand();
+
+        private SqlConnection con2 = new SqlConnection(@"data source=.;initial catalog=DieuLenh;user id=sa;password=buituan112;MultipleActiveResultSets=True;App=EntityFramework");
+        private SqlCommand cmd2 = new SqlCommand();
         //DESKTOP-SSAH8PS\SQLEXPRESS
 
         public AccountModel()
         {
-            con.Open();
+               con.Open();
             cmd.Connection = con;
+            con1.Open();
+            cmd1.Connection = con1;
+            cmd1.Parameters.Add("@Id", SqlDbType.NVarChar, 50);
+            cmd1.Parameters.Add("@Name", SqlDbType.NVarChar, 50);
+
+            con2.Open();
+            cmd2.Connection = con2;
+            cmd2.Parameters.Add("@UserName", SqlDbType.NVarChar, 50);
+            cmd2.Parameters.Add("@Password", SqlDbType.NVarChar, 50);
+            cmd2.Parameters.Add("@Id", SqlDbType.NVarChar, 50);
+            cmd2.Parameters.Add("@NamHoc", SqlDbType.NVarChar, 50);
+
+
         }
         public bool Login(string user, string pass)
         {
@@ -161,6 +179,75 @@ namespace DbDieuLenh
             }
             return gtr;
         }
+
+        public void AddGV(string NamHocGV, string HoTenGV, string TaiKhoan, string MatKhau)
+        {
+            cmd.CommandText = "select * from tbQuanly;";
+            var res = "";
+            
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                  
+                        res = reader.GetString(0);
+                             
+                    }
+
+
+                }
+            }
+            string tmp = "";
+            for (int i = 2; i < res.Length; i++)
+                tmp += res[i];
+
+            int num;
+            num = Convert.ToInt32(tmp);
+            num++;
+            tmp = num.ToString();
+            res = "GV" + tmp;
+
+            string sql = "Insert into tbQuanly (Id, Name) values (@Id, @Name);";
+            cmd1.CommandText = sql;
+            cmd1.Parameters["@Id"].Value = res;
+            cmd1.Parameters["@Name"].Value = HoTenGV;
+            int rowCount = cmd1.ExecuteNonQuery();
+
+            string sql2 = "Insert into tbUser (UserName, Password, Id, NamHoc) values (@UserName, @Password, @Id, @NamHoc);";
+            cmd2.CommandText = sql2;
+            cmd2.Parameters["@UserName"].Value = TaiKhoan;
+            cmd2.Parameters["@Password"].Value = MatKhau;
+            cmd2.Parameters["@Id"].Value = res;
+            cmd2.Parameters["@NamHoc"].Value = NamHocGV;
+            int rowCount2 = cmd2.ExecuteNonQuery();
+        }
+
+
+        public void AddDsGV(string link)
+        {
+            Application xlApp = new Application();
+            Workbook xlWorkbook = xlApp.Workbooks.Open(link);
+            Worksheet xlWorksheet = (Worksheet)xlWorkbook.Sheets.get_Item(1);
+            Range xlRange = xlWorksheet.UsedRange;
+            object[,] valueArray = (object[,])xlRange.get_Value(XlRangeValueDataType.xlRangeValueDefault);
+            for (int row = 2; row <= xlWorksheet.UsedRange.Rows.Count; row++)//đọc row hiện có trong Excel
+            {
+                string NamHocGV = valueArray[row, 1].ToString();
+                string HoTenGV = valueArray[row, 2].ToString();
+                string TaiKhoan = valueArray[row, 3].ToString();
+                string MatKhau = valueArray[row, 4].ToString();
+                
+                //Kiem tra xem da co trong csdl chua
+                var res = new AccountModel().Login(TaiKhoan, MatKhau);
+                if (!res)
+                    AddGV(NamHocGV, HoTenGV, TaiKhoan, MatKhau);
+            }
+        }
+
+
+
 
         //Student
         public string GetNameS(string id, string NamHoc)

@@ -76,6 +76,10 @@ namespace DbDieuLenh
             cmd2.Parameters["@NamHocS"].Value = NamHocS1;
             rowCount = cmd2.ExecuteNonQuery();
         }
+
+
+        
+
         public void AddS(string link)
         {
             Application xlApp = new Application();
