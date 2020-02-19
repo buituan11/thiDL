@@ -188,7 +188,7 @@ namespace DbDieuLenh
 				{
 					while (reader.Read())
 					{
-						if (reader.GetString(2)[0] == 'H')
+						if ('0' <= reader.GetString(2)[0] && reader.GetString(2)[0] <= '9')
 						{
 							len++;
 						}
@@ -203,8 +203,8 @@ namespace DbDieuLenh
 				{
 					while (reader.Read())
 					{
-						if (reader.GetString(2)[0] == 'H')              //Set các trường cho từng đối tượng trong mảng
-						{
+                        if ('0' <= reader.GetString(2)[0] && reader.GetString(2)[0] <= '9')              //Set các trường cho từng đối tượng trong mảng
+                        {
 							quanly[len] = new QL();
 							quanly[len].setTKQL(reader.GetString(0));
 							quanly[len].setMKQL(reader.GetString(1));
@@ -222,6 +222,27 @@ namespace DbDieuLenh
             string id = "";
             int len = 1;
             cmd.CommandText = "select * from tbQuanly;";
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (len == stt)
+                        {
+                            id = reader.GetString(0);
+                        }
+                        len++;
+                    }
+                }
+            }
+            return id;
+        }
+        public string getIDHV(int stt)
+        {
+            string id = "";
+            int len = 1;
+            cmd.CommandText = "select * from tbThiSinh;";
             using (DbDataReader reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)
@@ -262,6 +283,13 @@ namespace DbDieuLenh
         public void deleteTK(string id)
         {
             cmd.CommandText = "delete from tbQuanly where Id='"+id+"';";
+            int rowCount = cmd.ExecuteNonQuery();
+            cmd.CommandText = "delete from tbUser where Id='" + id + "';";
+            rowCount = cmd.ExecuteNonQuery();
+        }
+        public void deleteHV(string id)
+        {
+            cmd.CommandText = "delete from tbThiSinh where SoHieu='" + id + "';";
             int rowCount = cmd.ExecuteNonQuery();
             cmd.CommandText = "delete from tbUser where Id='" + id + "';";
             rowCount = cmd.ExecuteNonQuery();
