@@ -7,6 +7,18 @@ using System.Data;
 
 namespace DbDieuLenh
 {
+    public class QL
+    {
+        private string TKQL;
+        private string MKQL;
+        private string NamHocQL;
+        public void setTKQL(string TK) { TKQL = TK; }
+        public void setMKQL(string MK) { MKQL = MK; }
+        public string getTKQL() { return TKQL; }
+        public string getMKQL() { return MKQL; }
+        public void setNamHocQL(string NamHoc) { NamHocQL = NamHoc; }
+        public string getNamHocQL() { return NamHocQL; }
+    }
     public class AccountModel
     {
         private SqlConnection con = new SqlConnection(@"data source=.;initial catalog=DieuLenh;user id=sa;password=buituan112;MultipleActiveResultSets=True;App=EntityFramework");
@@ -20,7 +32,7 @@ namespace DbDieuLenh
 
         public AccountModel()
         {
-               con.Open();
+            con.Open();
             cmd.Connection = con;
             con1.Open();
             cmd1.Connection = con1;
@@ -127,6 +139,93 @@ namespace DbDieuLenh
             }
             return res;
         }
+        public QL[] getDS()
+        {
+            int len = 0;
+            cmd.CommandText = "select * from tbUser;";
+            using (DbDataReader reader = cmd.ExecuteReader())       //Đến số lượng
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(2)[0] == 'A')
+                        {
+                            len++;
+                        }
+                    }
+                }
+            }
+            QL[] quanly = new QL[len];                              //Tạo mảng đối tượng  vơi sl đã đếm
+            len = 0;
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(2)[0] == 'A')              //Set các trường cho từng đối tượng trong mảng
+                        {
+                            quanly[len] = new QL();
+                            quanly[len].setTKQL(reader.GetString(0));
+                            quanly[len].setMKQL(reader.GetString(1));
+                            quanly[len].setNamHocQL(reader.GetString(3));
+                            len++;
+                        }
+                    }
+                }
+            }
+            return quanly;
+        }
+        public string getIDTK(int stt)
+        {
+            string id = "";
+            int len = 1;
+            cmd.CommandText = "select * from tbQuanly;";
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (len == stt)
+                        {
+                            id = reader.GetString(0);
+                        }
+                        len++;
+                    }
+                }
+            }
+            return id;
+        }
+        public string getTK(int stt)
+        {
+            string TK = "";
+            int len = 1;
+            cmd.CommandText = "select * from tbUser;";
+            using (DbDataReader reader = cmd.ExecuteReader())       //tìm tài khoản có số thứ tự đúng với id của url
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (len == stt)
+                        {
+                            TK = reader.GetString(0);
+                        }
+                        if (reader.GetString(2)[0] == 'A')len++;
+                    }
+                }
+            }
+            return TK;
+        }
+        public void deleteTK(string id)
+        {
+            cmd.CommandText = "delete from tbQuanly where Id='"+id+"';";
+            int rowCount = cmd.ExecuteNonQuery();
+            cmd.CommandText = "delete from tbUser where Id='" + id + "';";
+            rowCount = cmd.ExecuteNonQuery();
+        }
         public string AddQuestion(string link)
         {
             Application xlApp = new Application();
@@ -182,7 +281,7 @@ namespace DbDieuLenh
 
         public void AddGV(string NamHocGV, string HoTenGV, string TaiKhoan, string MatKhau)
         {
-            cmd.CommandText = "select * from tbQuanly;";
+            cmd.CommandText = "select * from tbGiaoVien;";
             var res = "";
             
             using (DbDataReader reader = cmd.ExecuteReader())
@@ -192,24 +291,21 @@ namespace DbDieuLenh
                     while (reader.Read())
                     {
                   
-                        res = reader.GetString(0);
-                             
+                        res = reader.GetString(0);        
                     }
-
-
                 }
             }
             string tmp = "";
+            if (res == "") res = "GV0";
             for (int i = 2; i < res.Length; i++)
                 tmp += res[i];
-
             int num;
             num = Convert.ToInt32(tmp);
             num++;
             tmp = num.ToString();
             res = "GV" + tmp;
 
-            string sql = "Insert into tbQuanly (Id, Name) values (@Id, @Name);";
+            string sql = "Insert into tbGiaoVien (Id, Name) values (@Id, @Name);";
             cmd1.CommandText = sql;
             cmd1.Parameters["@Id"].Value = res;
             cmd1.Parameters["@Name"].Value = HoTenGV;
@@ -223,7 +319,6 @@ namespace DbDieuLenh
             cmd2.Parameters["@NamHoc"].Value = NamHocGV;
             int rowCount2 = cmd2.ExecuteNonQuery();
         }
-
 
         public void AddDsGV(string link)
         {
@@ -246,8 +341,46 @@ namespace DbDieuLenh
             }
         }
 
+        public void AddQL(string TKQL, string MKQL, string NamHocQL)
+        {
+            cmd.CommandText = "select * from tbQuanly;";
+            var res = "";
 
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
 
+                        res = reader.GetString(0);
+                    }
+                }
+            }
+            string tmp = "";
+            if (res == "") res = "AD0";
+            for (int i = 2; i < res.Length; i++)
+                tmp += res[i];
+            int num;
+            num = Convert.ToInt32(tmp);
+            num++;
+            tmp = num.ToString();
+            res = "AD" + tmp;
+
+            string sql = "Insert into tbQuanly (Id, Name) values (@Id, @Name);";
+            cmd1.CommandText = sql;
+            cmd1.Parameters["@Id"].Value = res;
+            cmd1.Parameters["@Name"].Value = TKQL;
+            int rowCount = cmd1.ExecuteNonQuery();
+
+            string sql2 = "Insert into tbUser (UserName, Password, Id, NamHoc) values (@UserName, @Password, @Id, @NamHoc);";
+            cmd2.CommandText = sql2;
+            cmd2.Parameters["@UserName"].Value = TKQL;
+            cmd2.Parameters["@Password"].Value = MKQL;
+            cmd2.Parameters["@Id"].Value = res;
+            cmd2.Parameters["@NamHoc"].Value = NamHocQL;
+            int rowCount2 = cmd2.ExecuteNonQuery();
+        }
 
         //Student
         public string GetNameS(string id, string NamHoc)

@@ -15,83 +15,101 @@
     <title>Trang chủ</title>
 </head>
 <style>
-    .home-admin{
+    .home-admin {
         background-color: white;
         padding: 5%;
         height: 100vh;
     }
-    .home-admin h1{ font-size: 30px; margin-bottom: 10px; }
-    .home-admin>h2{ font-size: 15px; color: red;}
-    .home-option{
+
+        .home-admin h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .home-admin > h2 {
+            font-size: 15px;
+            color: red;
+        }
+
+    .home-option {
         width: 700px;
     }
-    .nav{
+
+    .nav {
         display: flex;
         flex-direction: column;
         background-color: #30303D;
         padding: 0px;
         padding-top: 2%;
     }
-    .nav>h1{
-        font-size: 30px;
-        color: white;
-        margin-bottom: 20px;
-    }
-    .nav>button{
-        position: fixed;
-        left: 6%;
-        bottom: 0px;
-    }
-    .nav-op{
+
+        .nav > h1 {
+            font-size: 30px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .nav > button {
+            position: fixed;
+            left: 6%;
+            bottom: 0px;
+        }
+
+    .nav-op {
         padding: 20px 0px;
         text-align: center;
         font-size: 20px;
-        color: white; 
-        position:relative;
+        color: white;
+        position: relative;
     }
-    .collapse-nav{
-        
+
+    .collapse-nav {
         bottom: -115px;
-        display:none;
+        display: none;
     }
-    .coll:hover .collapse-nav{
+
+    .coll:hover .collapse-nav {
         display: block;
     }
-    #active-op{
+
+    #active-op {
         background-color: #3A3A46;
         border-right: 10px solid #007bff;
     }
-    .log-out{
+
+    .log-out {
         position: absolute;
         bottom: 0px;
     }
-    .choice{
+
+    .choice {
         display: flex;
         width: 500px;
         margin-bottom: 50px;
     }
-    .choice-op{
+
+    .choice-op {
         font-size: 25px;
         border: 1px solid transparent;
         border-bottom: 5px solid transparent;
         padding: 2% 5%;
     }
-    #active-choice{
+
+    #active-choice {
         font-weight: bold;
         border-color: #DEE1E6;
         border-bottom-color: red;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
-
 </style>
 <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 nav">
                 <h1> Giáo viên: @ViewBag.User </h1>
-                <div class="nav-op" id="active-op"> Quản lý đề</div>
-                @Html.ActionLink("Quản lý câu hỏi", "CauHoi", null , new { @class = "nav-op" })
+                @Html.ActionLink("Quản lý đề", "Index", null, new { @class = "nav-op" })
+                @Html.ActionLink("Quản lý câu hỏi", "CauHoi", null, new { @class = "nav-op" })
                 <div class="nav-op coll">
                     Quản lý người thi
                     <div class="collapse-nav" style="margin-top: 20px">
@@ -99,8 +117,8 @@
                         @Html.ActionLink("Quản lý giáo viên", "GiaoVien", null, new { @class = "nav-op", @style = "width:400px; background-color: #30303D;" })
                     </div>
                 </div>
-                @Html.ActionLink("Quản lý tài khoản", "TaiKhoan", null, new { @class = "nav-op" })
-                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                <div class="nav-op" id="active-op"> Quản lý tài khoản </div>
+                @using (Html.BeginForm("TaiKhoan", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
                     <button class="log-out btn btn-danger" type="submit">Đăng xuất</button>
@@ -111,73 +129,13 @@
                 <h2> @ViewBag.AddQ </h2>
                 <div class="home-option">
                     <div class="op">
-                        <!-- Tạo đề -->
-                        <h1> Tạo đề </h1>
-                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                            <div class="form-group">
-                                <label>Năm học</label>
-                                @Html.TextBoxFor(model => model.NamHoc, new
-                           {
-                               @class = "form-control",
-                               @type = "text",
-                               @placeholder = "Năm học"
-                           }
-     )
-                            </div>
-                            <div class="form-group">
-                                <label>Số mã đề</label>
-                                @Html.TextBoxFor(model => model.SoCau, new
-                           {
-                               @class = "form-control",
-                               @type = "text",
-                               @placeholder = "Số mã đề"
-                           }
-     )
-                            </div>
-                            <div class="form-group">
-                                <label>Số lượng câu chung</label>
-                                @Html.TextBoxFor(model => model.loai1, new
-                           {
-                               @class = "form-control",
-                               @type = "text",
-                               @placeholder = "Số lượng câu chung"
-                           }
-     )
-                            </div>
-                            <div class="form-group">
-                                <label>Số lượng câu theo hội thi</label>
-                                @Html.TextBoxFor(model => model.loai2, new
-                           {
-                               @class = "form-control",
-                               @type = "text",
-                               @placeholder = "Số lượng câu theo hội thi"
-                           }
-     )
-                            </div>
-                            <div class="form-group">
-                                <label>Thời gian làm </label>
-                                @Html.TextBoxFor(model => model.loai3, new
-                           {
-                               @class = "form-control",
-                               @type = "text",
-                               @placeholder = "Thời gian làm"
-                           }
-     )
-                            </div>
-                            <button type="submit" class="btn btn-primary">Tạo đề</button>
-                        }
-                    </div>
-                    <div class="op" style="display: none">
                         <!-- QL tài khoản -->
                         <div class="choice">
-                            <div class="choice-op" id="active-choice" onclick="choice(4)"> Thêm tài khoản </div>
-                            <div class="choice-op" id=" " onclick="choice(5)"> Danh sách tài khoản</div>
+                            <div class="choice-op" id="active-choice" onclick="choice(0)"> Thêm tài khoản </div>
+                            <div class="choice-op" id=" " onclick="choice(1)"> Danh sách tài khoản</div>
                         </div>
-                        <div class="choice-option">
-                            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        <div class="choice-option" style="display: none">
+                            @using (Html.BeginForm("TaiKhoan", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
@@ -214,7 +172,7 @@
                                 <button type="submit" class="btn btn-primary">Thêm tài khoản</button>
                             }
                         </div>
-                        <div class="choice-option" style="display: none">
+                        <div class="choice-option">
                             <div class="form-group">
                                 <lable> Danh sách tài khoản: </lable>
                                 <table class="table table-bordered">
@@ -226,25 +184,47 @@
                                             <th scope="col">Năm Học</th>
                                             <th scope="col"></th>
                                         </tr>
-                                        <tbody>
-                                            @{
-                                                var count = 1;
-                                                foreach (var item in @ViewBag.dsTK)
-                                                {
-                                                    <tr>
-                                                        <th scope="row">@count</th>
-                                                        <td>@item.getTKQL()</td>
-                                                        <td>@item.getMKQL()</td>
-                                                        <td>@item.getNamHocQL()</td>
-                                                        <td>@Html.ActionLink("Delete", "Delete", new { id = count }, new { target = "_blank" })</td>
-                                                    </tr>
-                                                     count = count + 1; 
-                                                            
-                                                 }
+                                    <tbody>
+                                        @{
+                                            var count = 1;
+                                            foreach (var item in @ViewBag.dsTK)
+                                            {
+                                                <tr>
+                                                    <th scope="row">@count</th>
+                                                    <td>@item.getTKQL()</td>
+                                                    <td>@item.getMKQL()</td>
+                                                    <td>@item.getNamHocQL()</td>
+                                                    <td>@Html.ActionLink("Delete", "Delete", new { id = count })</td>
+                                                </tr>
+                                                count = count + 1;
+
                                             }
-                                        </tbody>
+                                        }
+                                    </tbody>
                                     </thead>
                                 </table>
+                                @{
+                                    var deleteTK = "DeleteTKK/"+ViewBag.stt;
+                                    count = 1;
+                                    foreach (var item in @ViewBag.dsTK)
+                                    {
+                                        if (count == ViewBag.stt)
+                                        {
+                                            <p>Bạn có muốn xóa tài khoản @ViewBag.tk</p>
+                                        }
+                                        count = count + 1;
+
+                                    }
+                                }
+                                @{ 
+                                    using (Html.BeginForm("DeleteTKK", "Home", new { id = ViewBag.stt}, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger">Xóa</button>
+                                }
+                                }
+                                <button class="btn btn-light">@Html.ActionLink("Không", "TaiKhoan", null, null)</button>
+                                @ViewBag.a
                             </div>
                         </div>
                     </div>
@@ -253,6 +233,7 @@
 
         </div>
     </div>
+    
     <script type="text/javascript">
                                 function choice(e) {
                                     let nav = document.getElementsByClassName("choice-op");
@@ -267,4 +248,3 @@
     </script>
 </body>
 </html>
-

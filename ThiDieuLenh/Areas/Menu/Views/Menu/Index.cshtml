@@ -20,21 +20,18 @@
         overflow: hidden;
     }
     .top{
-        padding: 2% 0px;
         background-color: #ED1C22;
         height: 200px;
-        text-align: center;
     }
-    .top>img{
+    .top img{
         height: 200px;
-        position: fixed;
-        top: 0px;
-        left: 10px;
     }
-    .top>h1{
-        font-size: 60px;
+    .top h1{
+        font-size: 40px;
         font-weight: bold;
         color: yellow;
+        text-align: center;
+        margin-top: 3%;
     }
     .border-login{
         padding: 20px;
@@ -74,10 +71,11 @@
 </style>
 <body>
     <div class="root">
-        <div class="top">
-            <img src="~/Assets/images/logo.jpg"/>
-            <h1>PHẦN MỀM THI ĐIỀU LỆNH CAND</h1>
-            <h1>NĂM HỌC 2019-2020</h1>
+        <div class="container-fluid top">
+            <div class="row">
+                <img src="~/Assets/images/logo.jpg" class="col-lg-2"/>
+                <h1 class="col-lg-10">PHẦN MỀM THI TRẮC NGHIỆM NHẬN THỨC VỀ ĐIỀU LỆNH CAND,<br> QUY CHẾ QUẢN LÝ GIÁO DỤC HỌC VIÊN TẠI HỌC VIỆN ANND</h1>
+            </div>
         </div>
        <div class="border-login">
            <div class="login">
@@ -104,18 +102,19 @@
                           {
                               @class = "form-control",
                               @type = "text",
-                              @placeholder = "Giáo viên"
+                              @placeholder = "Giáo viên",
                           }
                             )
                                </div>
                                <div class="form-group">
                                    <label>Mật khẩu</label>
                                    @Html.TextBoxFor(model => model.Password, new
-                          {
-                              @class = "form-control",
-                              @type = "password",
-                              @placeholder = "Mật khẩu"
-                          }
+                              {
+                                  @class = "form-control",
+                                  @type = "password",
+                                  @placeholder = "Mật khẩu",
+                                  @id = "Pwd1"
+                              }
                             )
                                </div>
                                <button type="submit" class="btn btn-primary">Đăng nhập</button>
@@ -133,7 +132,7 @@
                               {
                                   @class = "form-control",
                                   @type = "text",
-                                  @placeholder = "Số hiệu"
+                                  @placeholder = "Số hiệu",
                               }
                             )
                                </div>
@@ -143,7 +142,8 @@
                               {
                                   @class = "form-control",
                                   @type = "password",
-                                  @placeholder = "Mật khẩu"
+                                  @placeholder = "Mật khẩu",
+                                  @id = "Pwd2"
                               }
                             )
                                </div>
@@ -172,7 +172,8 @@
                               {
                                   @class = "form-control",
                                   @type = "password",
-                                  @placeholder = "Mật khẩu"
+                                  @placeholder = "Mật khẩu",
+                                  @id = "Pwd3"
                               }
                             )
                                </div>

@@ -97,8 +97,8 @@ namespace ThiDieuLenh.Areas.Menu.Controllers
                         if (id[0] == 'G')
                         {
                             var name = new AccountModel().GetName(id);
-                            Session.Add(CommonConstant.ADMIN_SESSION, name);
-                            return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index", Area = "Admin" }));
+                            Session.Add(CommonConstant.STUDENT_SESSION, name);
+                            return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index", Area = "Student" }));
                         }
                         else
                         {

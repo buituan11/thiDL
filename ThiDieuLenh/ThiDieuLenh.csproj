@@ -129,9 +129,24 @@
     <Content Include="Assets\images\banner.jpg" />
     <Content Include="Assets\images\logo.jpg" />
     <Content Include="Assets\js\homeAdmin.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\bootstrap.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\Home\DeleteTK.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\CauHoi.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\HocSinh.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\GiaoVien.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\TaiKhoan.cshtml" />
+    <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\jquery-1.10.2.js" />
+    <Content Include="scripts\jquery-1.10.2.min.js" />
+    <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -173,6 +188,13 @@
     <Content Include="Areas\Menu\Views\Menu\Index.cshtml" />
     <Content Include="dsCauHoi.xlsx" />
     <Content Include="dsThiSinh.xlsx" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Edit.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -183,7 +205,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Menu\Views\Shared\" />
     <Folder Include="Areas\Student\Views\Base\" />
     <Folder Include="Areas\Student\Views\Shared\" />

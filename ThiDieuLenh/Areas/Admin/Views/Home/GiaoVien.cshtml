@@ -1,0 +1,217 @@
+﻿
+@{
+    Layout = null;
+}
+@model ThiDieuLenh.Areas.Admin.Models.HomeModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="/Assets/vendor/bootstrap.js"></script>
+    <link rel="stylesheet" href="/Assets/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="/Assets/css/reset.css" />
+    <title>Trang chủ</title>
+</head>
+<style>
+    .home-admin {
+        background-color: white;
+        padding: 5%;
+        height: 100vh;
+    }
+
+        .home-admin h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .home-admin > h2 {
+            font-size: 15px;
+            color: red;
+        }
+
+    .home-option {
+        width: 700px;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
+        background-color: #30303D;
+        padding: 0px;
+        padding-top: 2%;
+    }
+
+        .nav > h1 {
+            font-size: 30px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .nav > button {
+            position: fixed;
+            left: 6%;
+            bottom: 0px;
+        }
+
+    .nav-op {
+        padding: 20px 0px;
+        text-align: center;
+        font-size: 20px;
+        color: white;
+        position: relative;
+    }
+
+    .collapse-nav {
+        bottom: -115px;
+        display: none;
+    }
+
+    .coll:hover .collapse-nav {
+        display: block;
+    }
+
+    #active-op {
+        background-color: #3A3A46;
+        border-right: 10px solid #007bff;
+    }
+
+    .log-out {
+        position: absolute;
+        bottom: 0px;
+    }
+
+    .choice {
+        display: flex;
+        width: 500px;
+        margin-bottom: 50px;
+    }
+
+    .choice-op {
+        font-size: 25px;
+        border: 1px solid transparent;
+        border-bottom: 5px solid transparent;
+        padding: 2% 5%;
+    }
+
+    #active-choice {
+        font-weight: bold;
+        border-color: #DEE1E6;
+        border-bottom-color: red;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+</style>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 nav">
+                <h1> Giáo viên: @ViewBag.User </h1>
+                @Html.ActionLink("Quản lý đề", "Index", null, new { @class = "nav-op" })
+                @Html.ActionLink("Quản lý câu hỏi", "CauHoi", null, new { @class = "nav-op" })
+                <div class="nav-op coll">
+                    Quản lý người thi
+                    <div class="collapse-nav" style="margin-top: 20px">
+                        @Html.ActionLink("Quản lý học sinh", "HocSinh", null, new { @class = "nav-op", @style = "width:400px; background-color: #30303D;" })
+                        @Html.ActionLink("Quản lý học sinh", "GiaoVien", null, new { @class = "nav-op", @style = "width:400px; background-color: #30303D;" })
+                    </div>
+                </div>
+                @Html.ActionLink("Quản lý tài khoản", "TaiKhoan", null, new { @class = "nav-op" })
+                @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button class="log-out btn btn-danger" type="submit">Đăng xuất</button>
+                }
+            </div>
+            <p>@ViewBag.b</p>
+            <div class="home-admin col-lg-9">
+                <h2> @ViewBag.AddQ </h2>
+                <div class="home-option">
+                    <div class="op">
+                        <!-- QL giáo viên -->
+                        <div class="choice">
+                            <div class="choice-op" id="active-choice" onclick="choice(0)"> Thêm giáo viên </div>
+                            <div class="choice-op" id=" " onclick="choice(1)"> Danh sách giáo viên</div>
+                        </div>
+                        <div class="choice-option">
+                            @using (Html.BeginForm("GiaoVien", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                                <div class="form-group">
+                                    <label>Năm học</label>
+                                    @Html.TextBoxFor(model => model.NamHocGV, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Năm học"
+                               }
+ )
+                                </div>
+                                <div class="form-group">
+                                    <label>Họ và tên</label>
+                                    @Html.TextBoxFor(model => model.HoTenGV, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Họ và tên"
+                               }
+ )
+                                </div>
+                                <div class="form-group">
+                                    <label>Tài khoản</label>
+                                    @Html.TextBoxFor(model => model.TaiKhoan, new
+                               {
+                                   @class = "form-control",
+                                   @type = "text",
+                                   @placeholder = "Tài khoản"
+                               }
+ )
+                                </div>
+                                <div class="form-group">
+                                    <label>Mật khẩu</label>
+                                    @Html.TextBoxFor(model => model.MatKhau, new
+                               {
+                                   @class = "form-control",
+                                   @type = "password",
+                                   @placeholder = "Mật khẩu"
+                               }
+ )
+                                </div>
+                                <div class="form-group">
+                                    <label>Thêm giáo viên theo danh sách</label>
+                                    <div>
+                                        @Html.TextBoxFor(model => model.FileGV, new { type = "file" })
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Thêm giáo viên</button>
+                            }
+                        </div>
+                        <div class="choice-option" style="display: none">
+                            <div class="form-group">
+                                <lable> Danh sách giáo viên</lable>
+                                <input class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+                                function choice(e) {
+                                    let nav = document.getElementsByClassName("choice-op");
+                                    for (let i = 0; i < nav.length; i++)
+                                        nav[i].id = "";
+                                    nav[e].id = "active-choice";
+                                    let op = document.getElementsByClassName("choice-option");
+                                    for (let i = 0; i < op.length; i++)
+                                        op[i].style.display = "none";
+                                    op[e].style.display = "block";
+                                }
+    </script>
+</body>
+</html>

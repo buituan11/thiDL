@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DbDieuLenh;
 
 namespace ThiDieuLenh.Areas.Admin.Models
 {
@@ -30,5 +31,10 @@ namespace ThiDieuLenh.Areas.Admin.Models
         public string TaiKhoan { set; get; }
         public string MatKhau { set; get; }
         public HttpPostedFileBase FileGV { set; get; }
+
+        //Thêm tài khoản
+        public string TKQL { set; get; }
+        public string MKQL { set; get; }
+        public string NamHocQL { set; get; }
     }
 }
