@@ -139,7 +139,161 @@ namespace DbDieuLenh
             }
             return res;
         }
+        public QL[] getDS()
+        {
+            int len = 0;
+            cmd.CommandText = "select * from tbUser;";
+            using (DbDataReader reader = cmd.ExecuteReader())       //Đến số lượng
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(2)[0] == 'A')
+                        {
+                            len++;
+                        }
+                    }
+                }
+            }
+            QL[] quanly = new QL[len];                              //Tạo mảng đối tượng  vơi sl đã đếm
+            len = 0;
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(2)[0] == 'A')              //Set các trường cho từng đối tượng trong mảng
+                        {
+                            quanly[len] = new QL();
+                            quanly[len].setTKQL(reader.GetString(0));
+                            quanly[len].setMKQL(reader.GetString(1));
+                            quanly[len].setNamHocQL(reader.GetString(3));
+                            len++;
+                        }
+                    }
+                }
+            }
+            return quanly;
+        }
 
+		public QL[] getDSHV()
+		{
+			int len = 0;
+			cmd.CommandText = "select * from tbUser;";
+			using (DbDataReader reader = cmd.ExecuteReader())       //Đến số lượng
+			{
+				if (reader.HasRows)
+				{
+					while (reader.Read())
+					{
+						if ('0' <= reader.GetString(2)[0] && reader.GetString(2)[0] <= '9')
+						{
+							len++;
+						}
+					}
+				}
+			}
+			QL[] quanly = new QL[len];                              //Tạo mảng đối tượng  vơi sl đã đếm
+			len = 0;
+			using (DbDataReader reader = cmd.ExecuteReader())
+			{
+				if (reader.HasRows)
+				{
+					while (reader.Read())
+					{
+                        if ('0' <= reader.GetString(2)[0] && reader.GetString(2)[0] <= '9')              //Set các trường cho từng đối tượng trong mảng
+                        {
+							quanly[len] = new QL();
+							quanly[len].setTKQL(reader.GetString(0));
+							quanly[len].setMKQL(reader.GetString(1));
+							quanly[len].setNamHocQL(reader.GetString(3));
+							len++;
+						}
+					}
+				}
+			}
+			return quanly;
+		}
+
+		public string getIDTK(int stt)
+        {
+            string id = "";
+            int len = 1;
+            cmd.CommandText = "select * from tbQuanly;";
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (len == stt)
+                        {
+                            id = reader.GetString(0);
+                        }
+                        len++;
+                    }
+                }
+            }
+            return id;
+        }
+        public string getIDHV(int stt)
+        {
+            string id = "";
+            int len = 1;
+            cmd.CommandText = "select * from tbThiSinh;";
+            using (DbDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (len == stt)
+                        {
+                            id = reader.GetString(0);
+                        }
+                        len++;
+                    }
+                }
+            }
+            return id;
+        }
+        public string getTK(int stt)
+        {
+            string TK = "";
+            int len = 1;
+            cmd.CommandText = "select * from tbUser;";
+            using (DbDataReader reader = cmd.ExecuteReader())       //tìm tài khoản có số thứ tự đúng với id của url
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        if (len == stt)
+                        {
+                            TK = reader.GetString(0);
+                        }
+                        if (reader.GetString(2)[0] == 'A')len++;
+                    }
+                }
+            }
+            return TK;
+        }
+        public void deleteTK(string id)
+        {
+            cmd.CommandText = "delete from tbQuanly where Id='"+id+"';";
+            int rowCount = cmd.ExecuteNonQuery();
+            cmd.CommandText = "delete from tbUser where Id='" + id + "';";
+            rowCount = cmd.ExecuteNonQuery();
+        }
+        public void deleteHV(string id)
+        {
+            cmd.CommandText = "delete from tbThiSinh where SoHieu='" + id + "';";
+            int rowCount = cmd.ExecuteNonQuery();
+            cmd.CommandText = "delete from tbUser where Id='" + id + "';";
+            rowCount = cmd.ExecuteNonQuery();
+        }
         public string AddQuestion(string link)
         {
             Application xlApp = new Application();
@@ -354,93 +508,7 @@ namespace DbDieuLenh
             cmd2.Parameters["@NamHoc"].Value = NamHocQL;
             int rowCount2 = cmd2.ExecuteNonQuery();
         }
-        public QL[] getDS()
-        {
-            int len = 0;
-            cmd.CommandText = "select * from tbUser;";
-            using (DbDataReader reader = cmd.ExecuteReader())       //Đến số lượng
-            {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        if (reader.GetString(2)[0] == 'A')
-                        {
-                            len++;
-                        }
-                    }
-                }
-            }
-            QL[] quanly = new QL[len];                              //Tạo mảng đối tượng  vơi sl đã đếm
-            len = 0;
-            using (DbDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        if (reader.GetString(2)[0] == 'A')              //Set các trường cho từng đối tượng trong mảng
-                        {
-                            quanly[len] = new QL();
-                            quanly[len].setTKQL(reader.GetString(0));
-                            quanly[len].setMKQL(reader.GetString(1));
-                            quanly[len].setNamHocQL(reader.GetString(3));
-                            len++;
-                        }
-                    }
-                }
-            }
-            return quanly;
-        }
-        public string getIDTK(int stt)
-        {
-            string id = "";
-            int len = 1;
-            cmd.CommandText = "select * from tbQuanly;";
-            using (DbDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        if (len == stt)
-                        {
-                            id = reader.GetString(0);
-                        }
-                        len++;
-                    }
-                }
-            }
-            return id;
-        }
-        public string getTK(int stt)
-        {
-            string TK = "";
-            int len = 1;
-            cmd.CommandText = "select * from tbUser;";
-            using (DbDataReader reader = cmd.ExecuteReader())       //tìm tài khoản có số thứ tự đúng với id của url
-            {
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        if (len == stt)
-                        {
-                            TK = reader.GetString(0);
-                        }
-                        if (reader.GetString(2)[0] == 'A') len++;
-                    }
-                }
-            }
-            return TK;
-        }
-        public void deleteTK(string id)
-        {
-            cmd.CommandText = "delete from tbQuanly where Id='" + id + "';";
-            int rowCount = cmd.ExecuteNonQuery();
-            cmd.CommandText = "delete from tbUser where Id='" + id + "';";
-            rowCount = cmd.ExecuteNonQuery();
-        }
+
 
         //Student
         public string GetNameS(string id, string NamHoc)

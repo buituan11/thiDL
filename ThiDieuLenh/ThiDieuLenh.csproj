@@ -143,6 +143,8 @@
     <Content Include="Areas\Admin\Views\Home\HocSinh.cshtml" />
     <Content Include="Areas\Admin\Views\Home\GiaoVien.cshtml" />
     <Content Include="Areas\Admin\Views\Home\TaiKhoan.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DeleteGV.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\DeleteHV.cshtml" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />

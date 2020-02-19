@@ -33,6 +33,7 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
         public ActionResult HocSinh()
         {
             ViewBag.User = Session[CommonConstant.ADMIN_SESSION];
+			ViewBag.dsHV = new AccountModel().getDSHV();
             return View();
         }
         [HttpGet]
@@ -49,6 +50,17 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
             ViewBag.dsTK = new AccountModel().getDS();
             return View();
         }
+
+        [HttpGet]
+        public ActionResult DeleteHV(int id)
+        {
+            ViewBag.User = Session[CommonConstant.ADMIN_SESSION];
+            ViewBag.dsHV = new AccountModel().getDSHV();
+            ViewBag.stt = id;
+            ViewBag.tk = new AccountModel().getTK(id);
+            return View();
+        }
+
         [HttpGet]
         public ActionResult DeleteTK(int id)
         {
@@ -103,7 +115,8 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult HocSinh(HomeModel model)
         {
-            if (model.id != null || model.FileS != null)           //Them thi sinh
+			ViewBag.dsHV = new AccountModel().getDSHV();
+			if (model.id != null || model.FileS != null)           //Them thi sinh
             {
                 ViewBag.AddQ = "Đã thêm thành công hoc sinh";
                 if (model.id != null)
@@ -194,6 +207,13 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
             if (tk != "")
                 new AccountModel().deleteTK(tk);
             return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "TaiKhoan", Area = "Admin" }));
+        }
+        public ActionResult DeleteHVV(int id)
+        {
+            string tk = new AccountModel().getIDHV(id);
+            if (tk != "")
+                new AccountModel().deleteHV(tk);
+            return new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "HocSinh", Area = "Admin" }));
         }
     }
 }

@@ -134,7 +134,7 @@
                             <div class="choice-op ts" id="active-choice" onclick="choice(0)"> Thêm thí sinh </div>
                             <div class="choice-op ts" id=" " onclick="choice(1)"> Danh sách thí sinh</div>
                         </div>
-                        <div class="choice-option">
+                        <div class="choice-option" style="display: none">
                             @using (Html.BeginForm("HocSinh", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 @Html.AntiForgeryToken()
@@ -213,7 +213,7 @@
                                 <button type="submit" class="btn btn-primary">Thêm thí sinh</button>
                             }
                         </div>
-                        <div class="choice-option" style="display: none">
+                        <div class="choice-option" style="display: block">
                             <div class="form-group">
                                 <lable> Danh sách thí sinh</lable>
                                 <table class="table table-bordered">
@@ -244,6 +244,27 @@
                                     </tbody>
                                     </thead>
                                 </table>
+                                @{
+                                    var deleteHV = "DeleteHVV/" + ViewBag.stt;
+                                    count = 1;
+                                    foreach (var item in @ViewBag.dsHV)
+                                    {
+                                        if (count == ViewBag.stt)
+                                        {
+                                            <p>Bạn có muốn xóa tài khoản @ViewBag.tk</p>
+                                        }
+                                        count = count + 1;
+
+                                    }
+                                }
+                                @{
+                                    using (Html.BeginForm("DeleteHVV", "Home", new { id = ViewBag.stt }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                    }
+                                }
+                                <button class="btn btn-light">@Html.ActionLink("Không", "TaiKhoan", null, null)</button>
                             </div>
                         </div>
                     </div>
