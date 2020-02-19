@@ -39,6 +39,7 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
         public ActionResult GiaoVien()
         {
             ViewBag.User = Session[CommonConstant.ADMIN_SESSION];
+            ViewBag.dsGV = new AccountModel().getDSGV();
             return View();
         }
         [HttpGet]
@@ -55,6 +56,15 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
             ViewBag.dsTK = new AccountModel().getDS();
             ViewBag.stt = id;
             ViewBag.tk = new AccountModel().getTK(id);
+            return View();
+        }
+        [HttpGet]
+        public ActionResult DeleteGV(int id)
+        {
+            ViewBag.User = Session[CommonConstant.ADMIN_SESSION];
+            ViewBag.dsGV = new AccountModel().getDSGV();
+            ViewBag.stt = id;
+            ViewBag.tk = new AccountModel().getGV(id);
             return View();
         }
 
@@ -127,6 +137,7 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult GiaoVien(HomeModel model)
         {
+            ViewBag.dsGV = new AccountModel().getDSGV();
             if (model.NamHocGV != null || model.FileGV != null)
             {
                 ViewBag.AddQ = "Đã thêm thành công giáo viên";
