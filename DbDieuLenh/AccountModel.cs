@@ -177,7 +177,47 @@ namespace DbDieuLenh
             }
             return quanly;
         }
-        public string getIDTK(int stt)
+
+		public QL[] getDSHV()
+		{
+			int len = 0;
+			cmd.CommandText = "select * from tbUser;";
+			using (DbDataReader reader = cmd.ExecuteReader())       //Đến số lượng
+			{
+				if (reader.HasRows)
+				{
+					while (reader.Read())
+					{
+						if (reader.GetString(2)[0] == 'H')
+						{
+							len++;
+						}
+					}
+				}
+			}
+			QL[] quanly = new QL[len];                              //Tạo mảng đối tượng  vơi sl đã đếm
+			len = 0;
+			using (DbDataReader reader = cmd.ExecuteReader())
+			{
+				if (reader.HasRows)
+				{
+					while (reader.Read())
+					{
+						if (reader.GetString(2)[0] == 'H')              //Set các trường cho từng đối tượng trong mảng
+						{
+							quanly[len] = new QL();
+							quanly[len].setTKQL(reader.GetString(0));
+							quanly[len].setMKQL(reader.GetString(1));
+							quanly[len].setNamHocQL(reader.GetString(3));
+							len++;
+						}
+					}
+				}
+			}
+			return quanly;
+		}
+
+		public string getIDTK(int stt)
         {
             string id = "";
             int len = 1;

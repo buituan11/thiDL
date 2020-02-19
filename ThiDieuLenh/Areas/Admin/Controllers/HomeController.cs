@@ -33,6 +33,7 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
         public ActionResult HocSinh()
         {
             ViewBag.User = Session[CommonConstant.ADMIN_SESSION];
+			ViewBag.dsHV = new AccountModel().getDSHV();
             return View();
         }
         [HttpGet]
@@ -48,6 +49,9 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
             ViewBag.dsTK = new AccountModel().getDS();
             return View();
         }
+
+
+
         [HttpGet]
         public ActionResult DeleteTK(int id)
         {
@@ -93,7 +97,8 @@ namespace ThiDieuLenh.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult HocSinh(HomeModel model)
         {
-            if (model.id != null || model.FileS != null)           //Them thi sinh
+			ViewBag.dsHV = new AccountModel().getDSHV();
+			if (model.id != null || model.FileS != null)           //Them thi sinh
             {
                 ViewBag.AddQ = "Đã thêm thành công hoc sinh";
                 if (model.id != null)
